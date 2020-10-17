@@ -13,21 +13,18 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public String exemass[] = new String[10];
-    public ExeClass mExeClasses[] = new ExeClass[10];
-
+    private ExeClass[] mExeClass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        for (int i = 0; i < 10; i++) {
-            exemass[i] = "Execyses " + (i + 1);
-            mExeClasses[i].Name = "Execyses " + (i + 1);
-            mExeClasses[i].weight = (int) Math.random() * 100;
+        mExeClass = new ExeClass[10];
+        for (int i = 0; i < mExeClass.length; i++) {
+            mExeClass[i].Name = "Execyses " + i;
         }
         ListView listexercises = (ListView) findViewById(R.id.IDlist);
         ArrayAdapter adapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, exemass);
+                android.R.layout.simple_list_item_1, mExeClass);
         listexercises.setAdapter(adapter);
         listexercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
