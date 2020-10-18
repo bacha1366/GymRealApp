@@ -13,22 +13,19 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ExeClass[] mExeClass;
+    private ExercisesManager exercisesManager = new ExercisesManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mExeClass = new ExeClass[10];
-        for (int i = 0; i < mExeClass.length; i++) {
-            mExeClass[i+1].getName("Execyses " + i);
-        }
-        ListView listexercises = (ListView) findViewById(R.id.IDlist);
-        ArrayAdapter adapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, mExeClass);
+        ListView listexercises = findViewById(R.id.IDlist);
+        ArrayAdapter<ExeClass> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, exercisesManager.getMyExercises());
         listexercises.setAdapter(adapter);
         listexercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(MainActivity.this, ExeActivity.class);
             }
         });
