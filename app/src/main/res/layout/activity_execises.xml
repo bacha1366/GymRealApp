@@ -20,7 +20,7 @@
         tools:text="Жим лежа" />
 
     <EditText
-        android:id="@+id/weight"
+        android:id="@+id/WeightExe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="268dp"
@@ -31,13 +31,13 @@
         app:layout_constraintTop_toBottomOf="@+id/NameExe" />
 
     <EditText
-        android:id="@+id/replay"
+        android:id="@+id/ReplayExe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="8"
         android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="@+id/weight"
-        app:layout_constraintTop_toBottomOf="@+id/weight" />
+        app:layout_constraintEnd_toEndOf="@+id/WeightExe"
+        app:layout_constraintTop_toBottomOf="@+id/WeightExe" />
 
     <TextView
         android:id="@+id/textView"
@@ -46,7 +46,7 @@
         android:layout_marginStart="56dp"
         android:text="Вес снаряда"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/weight"
+        app:layout_constraintBottom_toBottomOf="@+id/WeightExe"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -56,7 +56,7 @@
         android:layout_marginStart="56dp"
         android:text="Повторы"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/replay"
+        app:layout_constraintBottom_toBottomOf="@+id/ReplayExe"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button

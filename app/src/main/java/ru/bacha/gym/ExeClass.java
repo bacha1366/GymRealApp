@@ -6,10 +6,12 @@ import android.os.Parcelable;
 public class ExeClass implements Parcelable {
     public String name;
     public double weight;
-    public byte replay;
+    public int replay;
 
-    public ExeClass(String name) {
+    public ExeClass(String name, double weight, int replay) {
         this.name = name;
+        this.weight = weight;
+        this.replay = replay;
     }
 
     @Override
@@ -36,14 +38,14 @@ public class ExeClass implements Parcelable {
     protected ExeClass(Parcel in) {
         name = in.readString();
         weight = in.readDouble();
-        replay = in.readByte();
+        replay = in.readInt();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeDouble(weight);
-        dest.writeByte(replay);
+        dest.writeInt(replay);
     }
 
     @Override
