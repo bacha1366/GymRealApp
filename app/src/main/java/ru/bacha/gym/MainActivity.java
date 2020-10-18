@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mExeClass = new ExeClass[10];
         for (int i = 0; i < mExeClass.length; i++) {
-            mExeClass[i].Name = "Execyses " + i;
+            mExeClass[i+1].getName("Execyses " + i);
         }
         ListView listexercises = (ListView) findViewById(R.id.IDlist);
         ArrayAdapter adapter = new ArrayAdapter(this,

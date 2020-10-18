@@ -1,12 +1,16 @@
 package ru.bacha.gym;
 
 public class ExeClass {
-    public String Name;
+    public String name;
     public double weight;
     public byte replay;
 
     @Override
     public String toString(){
-        return Name;
+        return name;
+    }
+
+    public void getName (String name){
+        this.name = name;
     }
 }
