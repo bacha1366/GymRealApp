@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         listexercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                startActivity(ExeActivity.createExerciseIntent(MainActivity.this, adapter.getItem(position)));
+                startActivity(ExeActivity.createExerciseIntent(MainActivity.this,
+                        adapter.getItem(position)));
             }
         });
 

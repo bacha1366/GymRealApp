@@ -15,4 +15,12 @@ public class ExercisesManager {
     public Exercise[] getMyExercises() {
         return myExercises;
     }
+
+    public  Exercise getExercisesForID(int id){
+        int i;
+        for (i = 0; i < myExercises.length; i++) {
+            if (id==myExercises[i].id) break;
+        }
+        return myExercises[i];
+    }
 }
