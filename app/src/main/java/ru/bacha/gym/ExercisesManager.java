@@ -16,10 +16,13 @@ public class ExercisesManager {
         return myExercises;
     }
 
-    public  Exercise getExercisesForID(int id){
+    //есть два способа ответа на неправильно введенный id. Первый - возвращать null вместо Exercise,
+    // второй - выбрасывать ошибку. Мне больше нравится второй, потому что он сразу дает понять, что
+    // мы что-то сделали не так.
+    public Exercise getExerciseForID(int id) {
         int i;
         for (i = 0; i < myExercises.length; i++) {
-            if (id==myExercises[i].id) break;
+            if (id == myExercises[i].id) break;
         }
         return myExercises[i];
     }

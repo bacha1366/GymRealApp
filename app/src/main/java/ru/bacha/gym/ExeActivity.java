@@ -10,13 +10,12 @@ import android.widget.TextView;
 public class ExeActivity extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_execises);
         ExercisesManager exercisesManager = new ExercisesManager();
-        Exercise exercise = exercisesManager.getExercisesForID(getIntent().getIntExtra(EXERCISE_KEY,
+        Exercise exercise = exercisesManager.getExerciseForID(getIntent().getIntExtra(EXERCISE_KEY,
                 0));
         TextView nameExe = findViewById(R.id.NameExe);
         TextView weightExe = findViewById(R.id.WeightExe);
