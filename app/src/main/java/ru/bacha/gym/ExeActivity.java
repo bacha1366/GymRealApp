@@ -9,21 +9,27 @@ import android.widget.TextView;
 
 public class ExeActivity extends AppCompatActivity {
 
-    private static String EXERCISE_KEY = "exercise_key";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_execises);
-        ExeClass exeClass = (ExeClass) getIntent().getParcelableExtra(EXERCISE_KEY);
+        Exercise exercise = getIntent().getParcelableExtra(EXERCISE_KEY);
 
-        TextView nameExe = (TextView) findViewById(R.id.NameExe);
-        TextView weightExe = (TextView) findViewById(R.id.WeightExe);
-        TextView replayExe = (TextView) findViewById(R.id.ReplayExe);
-        nameExe.setText(exeClass.name);
-        weightExe.setText(Double.toString(exeClass.weight));
-        replayExe.setText(Integer.toString(exeClass.replay));
+        TextView nameExe = findViewById(R.id.NameExe);
+        TextView weightExe = findViewById(R.id.WeightExe);
+        TextView replayExe = findViewById(R.id.ReplayExe);
+        nameExe.setText(exercise.name);
+        weightExe.setText(Double.toString(exercise.weight));
+        replayExe.setText(Integer.toString(exercise.replay));
     }
+
+    public static Intent createExerciseIntent(Context context, Exercise exercise) {
+        Intent intent = new Intent(context, ExeActivity.class);
+        intent.putExtra(EXERCISE_KEY, exercise);
+        return intent;
+    }
+
+    private static String EXERCISE_KEY = "exercise_key";
 
 
 }
