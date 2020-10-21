@@ -10,17 +10,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
-    private ExercisesManager exercisesManager = new ExercisesManager();
+
+    private ExercisesManager exercisesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        exercisesManager = getGymApp().mExercisesManager ;
         ListView listexercises = findViewById(R.id.IDlist);
         final ArrayAdapter<Exercise> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, exercisesManager.getMyExercises());
+                android.R.layout.simple_list_item_1, exercisesManager.getMyExercises()) ;
         listexercises.setAdapter(adapter);
         listexercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
