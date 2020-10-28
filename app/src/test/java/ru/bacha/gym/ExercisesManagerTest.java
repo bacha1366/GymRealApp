@@ -9,12 +9,12 @@ public class ExercisesManagerTest {
 
     private ExercisesManager manager = new ExercisesManager();
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void getExercisesThrowsForBigId() {
         manager.getExerciseForID(100);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void getExercisesForIDWithNegativeId() {
         manager.getExerciseForID(-1);
     }
