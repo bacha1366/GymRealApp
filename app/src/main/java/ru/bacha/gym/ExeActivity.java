@@ -1,6 +1,11 @@
 package ru.bacha.gym;
 
 import androidx.appcompat.app.AppCompatActivity;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.BiConsumer;
+import io.reactivex.rxjava3.functions.Consumer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +14,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Observer;
+
 public class ExeActivity extends BaseActivity implements View.OnClickListener {
 
     private ExercisesManager exercisesManager;
     private Exercise exercise;
+    TextView nameExe;
     TextView weightExe;
     TextView replayExe;
     TextView approachExe;
@@ -22,15 +30,17 @@ public class ExeActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_execises);
-        exercisesManager = getGymApp().mExercisesManager ;
-        id=1;
-        exercise = exercisesManager.getExerciseForID(getIntent().getIntExtra(EXERCISE_KEY,
-                0));
-        TextView nameExe = findViewById(R.id.NameExe);
+        exercisesManager = getGymApp().mExercisesManager;
+        id = 1;
+        nameExe = findViewById(R.id.NameExe);
         weightExe = findViewById(R.id.WeightExe);
         replayExe = findViewById(R.id.ReplayExe);
         approachExe = findViewById(R.id.approachView);
-        nameExe.setText(exercise.name);
+        exercisesManager
+                .getExerciseForID(getIntent().getIntExtra(EXERCISE_KEY, 0))
+                .subscribe(exercise -> {
+                    nameExe.setText(exercise.name);
+                });
     }
 
     public static Intent createExerciseIntent(Context context, Exercise exercise) {
@@ -60,9 +70,10 @@ public class ExeActivity extends BaseActivity implements View.OnClickListener {
                     Toast.makeText(this, "Проверь количество", Toast.LENGTH_LONG).show();
                     return;
                 }
-                exercisesManager.saveApproach(id, weight,replay);
-                id++;
-                approachExe.setText(approachExe.getText() + " " + weight + "*" + replay + " ," );
+                exercisesManager.saveApproach(id, weight, replay).subscribe(() -> {
+                    id++;
+                    approachExe.setText(approachExe.getText() + " " + weight + "*" + replay + " ,");
+                });
 
 
         }
