@@ -28,15 +28,12 @@ public class MainActivity extends BaseActivity {
         exercisesManager.getMyExercises().subscribe(new Consumer<List<Exercise>>() {
             @Override
             public void accept(List<Exercise> exercises) throws Throwable {
-                ArrayAdapter<Exercise> adapter = new ArrayAdapter<>(this,
+                adapter = new ArrayAdapter<>(MainActivity.this,
                         android.R.layout.simple_list_item_1,
                         exercises) ;
                 listexercises.setAdapter(adapter);
             }
         });
-//        final ArrayAdapter<Exercise> adapter = new ArrayAdapter<>(this,
-//                android.R.layout.simple_list_item_1, exercisesManager.getMyExercises()) ;
-//        listexercises.setAdapter(adapter);
 
         listexercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
