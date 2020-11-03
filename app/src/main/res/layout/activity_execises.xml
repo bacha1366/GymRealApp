@@ -1,93 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
     <TextView
-        android:id="@+id/NameExe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Жим лежа" />
+            android:id="@+id/NameExe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Жим лежа" />
 
     <EditText
-        android:id="@+id/WeightExe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="268dp"
-        android:layout_marginTop="44dp"
-        android:text="jhg"
-        android:textSize="48sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NameExe" />
+            android:id="@+id/WeightExe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="64dp"
+            android:text="120"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/NameExe" />
 
     <EditText
-        android:id="@+id/ReplayExe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="8"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="@+id/WeightExe"
-        app:layout_constraintTop_toBottomOf="@+id/WeightExe" />
+            android:id="@+id/ReplayExe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="@+id/WeightExe"
+            app:layout_constraintTop_toBottomOf="@+id/WeightExe" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:text="Вес снаряда"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/WeightExe"
-        app:layout_constraintStart_toStartOf="parent" />
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:text="Вес снаряда"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/WeightExe"
+            app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:text="Повторы"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ReplayExe"
-        app:layout_constraintStart_toStartOf="parent" />
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:text="Повторы"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ReplayExe"
+            app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/nextButton"
-        android:layout_width="170dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="256dp"
-        android:onClick="onClick"
-        android:text="Next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NameExe" />
+            android:id="@+id/nextButton"
+            android:layout_width="170dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="24dp"
+            android:onClick="onClick"
+            android:text="Next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.56"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/NoteExe" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="155dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="32dp"
-        android:text="Close"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+            android:id="@+id/button2"
+            android:layout_width="155dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="32dp"
+            android:text="Close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/approachView"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nextButton" />
+            android:id="@+id/approachView"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nextButton" />
+
+    <EditText
+            android:id="@+id/NoteExe"
+            android:layout_width="307dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Примечания"
+            android:inputType="textMultiLine"
+            android:text="вып"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ReplayExe" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

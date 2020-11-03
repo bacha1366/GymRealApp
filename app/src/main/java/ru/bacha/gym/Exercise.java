@@ -2,9 +2,14 @@ package ru.bacha.gym;
 
 import java.util.Objects;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Exercise {
-    public final String name;
+    @PrimaryKey
     public final int id;
+    public final String name;
 
     public Exercise(int id, String name) {
         this.name = name;

@@ -24,6 +24,7 @@ public class ExeActivity extends BaseActivity implements View.OnClickListener {
     TextView weightExe;
     TextView replayExe;
     TextView approachExe;
+    TextView noteExe;
     int id;
 
     @Override
@@ -35,11 +36,13 @@ public class ExeActivity extends BaseActivity implements View.OnClickListener {
         nameExe = findViewById(R.id.NameExe);
         weightExe = findViewById(R.id.WeightExe);
         replayExe = findViewById(R.id.ReplayExe);
+        noteExe = findViewById(R.id.NoteExe);
         approachExe = findViewById(R.id.approachView);
         exercisesManager
                 .getExerciseForID(getIntent().getIntExtra(EXERCISE_KEY, 0))
                 .subscribe(exercise -> {
                     nameExe.setText(exercise.name);
+                    this.exercise = exercise;
                 });
     }
 
@@ -56,6 +59,7 @@ public class ExeActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         double weight;
         int replay;
+        String note;
         switch (view.getId()) {
             case R.id.nextButton:
                 try {
@@ -70,9 +74,15 @@ public class ExeActivity extends BaseActivity implements View.OnClickListener {
                     Toast.makeText(this, "Проверь количество", Toast.LENGTH_LONG).show();
                     return;
                 }
-                exercisesManager.saveApproach(id, weight, replay).subscribe(() -> {
+                try {
+                    note = noteExe.getText().toString();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(this, "Что то пошло не так", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                exercisesManager.saveApproach(id, weight, replay, note).subscribe(() -> {
                     id++;
-                    approachExe.setText(approachExe.getText() + " " + weight + "*" + replay + " ,");
+                    approachExe.append(/*approachExe.getText() +*/ " " + weight + "*" + replay + " ,");
                 });
 
 

@@ -49,9 +49,9 @@ public class ExercisesManager {
                 .singleOrError();
         };
 
-    public Completable saveApproach(int id, double weight, int replay) {
+    public Completable saveApproach(int id, double weight, int replay, String note) {
         return Completable
-                .fromRunnable(() -> approaches.add(new Approach(id, weight, replay)));
+                .fromRunnable(() -> approaches.add(new Approach(id, weight, replay, note)));
 
     }
 

@@ -25,14 +25,11 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ListView listexercises = (ListView) findViewById(R.id.IDlist);
         exercisesManager = getGymApp().mExercisesManager ;
-        exercisesManager.getMyExercises().subscribe(new Consumer<List<Exercise>>() {
-            @Override
-            public void accept(List<Exercise> exercises) throws Throwable {
-                adapter = new ArrayAdapter<>(MainActivity.this,
-                        android.R.layout.simple_list_item_1,
-                        exercises) ;
-                listexercises.setAdapter(adapter);
-            }
+        exercisesManager.getMyExercises().subscribe(exercises -> {
+            adapter = new ArrayAdapter<>(MainActivity.this,
+                    android.R.layout.simple_list_item_1,
+                    exercises) ;
+            listexercises.setAdapter(adapter);
         });
 
         listexercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {
