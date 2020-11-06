@@ -1,6 +1,7 @@
 package ru.bacha.gym;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -9,6 +10,5 @@ import androidx.room.PrimaryKey;
 public class Workout {
     @PrimaryKey
     public int id;
-    public Calendar date;
-    public String location;
+    //public Calendar date;
 }

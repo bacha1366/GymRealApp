@@ -1,5 +1,6 @@
 package ru.bacha.gym;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -10,9 +11,11 @@ import androidx.room.PrimaryKey;
 })
 
 public class MySet {
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     public int id;
+    @ColumnInfo (index = true)
     public int idExercise;
+    @ColumnInfo (index = true)
     public int idWorkout;
     public String note;
 }

@@ -2,6 +2,7 @@ package ru.bacha.gym;
 
 import androidx.appcompat.app.AppCompatActivity;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +26,12 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ListView listexercises = (ListView) findViewById(R.id.IDlist);
         exercisesManager = getGymApp().mExercisesManager ;
-        exercisesManager.getMyExercises().subscribe(exercises -> {
+        ExerciseDataBase db = getGymApp().getDB(); //Создаем переменную и получаем объект базы данных
+        ExerciseDao exerciseDao = db.exerciseDao();
+        exerciseDao.getAll()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(exercises -> {
             adapter = new ArrayAdapter<>(MainActivity.this,
                     android.R.layout.simple_list_item_1,
                     exercises) ;
