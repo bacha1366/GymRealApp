@@ -4,50 +4,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.functions.Predicate;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class ExercisesManager {
+public class ExercisesManager{
 
     public List<Approach> approaches = new ArrayList<Approach>();
 
-    private List <Exercise> myExercises = new ArrayList<>();
+    private List<Exercise> myExercises = new ArrayList<>();
 
-    public List<Exercise> loadExercises() {
-        myExercises.add(new Exercise(1,"Жим лежа"));
-        myExercises.add(new Exercise(2,"Батерфляй"));
-        myExercises.add(new Exercise(3,"Кроссовер"));
-        myExercises.add(new Exercise(4,"Разводка"));
-        myExercises.add(new Exercise(5,"Приседания"));
-        myExercises.add(new Exercise(6,"Гак"));
-        myExercises.add(new Exercise(7,"Передние дельты"));
-        myExercises.add(new Exercise(8,"Разводка сидя"));
-        myExercises.add(new Exercise(9,"Трицепц"));
-        myExercises.add(new Exercise(10,"Бицепц"));
-        return myExercises;
+    ExerciseDataBase db;
+    ExerciseDao exerciseDao;
+
+    public ExercisesManager(ExerciseDataBase db){
+        this.db = db;
+        exerciseDao = db.exerciseDao();
     }
 
 
-
-    public Single<List<Exercise>> getMyExercises() {
-        return Observable.just(loadExercises())
-                .singleOrError();
-    };
+    Single<List<Exercise>> getExercises(){
+        return exerciseDao.getAll().doOnSuccess(exercises -> {myExercises = exercises;});
+    }
 
 
-        public Single<Exercise> getExerciseForID(int id) {
-            return Observable
+    public Single<Exercise> getExerciseForID(int id) {
+        return Observable
                 .fromIterable(myExercises)
-                .filter( exercise -> {
+                .filter(exercise -> {
                     if (id == exercise.id) return true;
                     return false;
                 })
                 .singleOrError();
-        };
+    }
+
+    ;
 
     public Completable saveApproach(int id, double weight, int replay, String note) {
         return Completable

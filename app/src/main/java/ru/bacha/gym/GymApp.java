@@ -11,7 +11,7 @@ public class GymApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mExercisesManager = new ExercisesManager();
+        mExercisesManager = new ExercisesManager(getDB());
 
     }
 

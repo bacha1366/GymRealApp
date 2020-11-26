@@ -13,4 +13,7 @@ public interface ExerciseDao {
     @Query("SELECT * FROM Exercise")
     Single<List<Exercise>> getAll();
 
+    @Insert
+    Single<Long> addExercise(Exercise exercise);
+
 }

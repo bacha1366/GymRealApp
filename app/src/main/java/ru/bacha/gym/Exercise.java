@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Exercise {
     @PrimaryKey
-    public final int id;
-    public final String name;
+    public Long id;
+    public String name;
 
-    public Exercise(int id, String name) {
+    public Exercise(Long id, String name) {
         this.name = name;
         this.id = id;
     }
@@ -23,18 +23,4 @@ public class Exercise {
 
 
 
-
-    //equals && hashcode
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Exercise exercise = (Exercise) o;
-        return id == exercise.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

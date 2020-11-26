@@ -38,6 +38,7 @@ public class ExeActivity extends BaseActivity implements View.OnClickListener {
         replayExe = findViewById(R.id.ReplayExe);
         noteExe = findViewById(R.id.NoteExe);
         approachExe = findViewById(R.id.approachView);
+        int i = getIntent().getIntExtra(EXERCISE_KEY, 0);//Строка для проверки
         exercisesManager
                 .getExerciseForID(getIntent().getIntExtra(EXERCISE_KEY, 0))
                 .subscribe(exercise -> {

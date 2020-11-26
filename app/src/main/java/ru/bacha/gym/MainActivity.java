@@ -14,9 +14,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity {// Наследуется от BaseActivity для метода getGymApp()
 
 
     private ExercisesManager exercisesManager;
@@ -27,10 +29,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ListView listexercises = (ListView) findViewById(R.id.IDlist);
+        FloatingActionButton newExercise = (FloatingActionButton) findViewById(R.id.new_btn);
         exercisesManager = getGymApp().mExercisesManager ;
-        ExerciseDataBase db = getGymApp().getDB(); //Создаем переменную и получаем объект базы данных
-        ExerciseDao exerciseDao = db.exerciseDao();
-        exerciseDao.getAll()
+        exercisesManager.getExercises()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(exercises -> {
@@ -45,6 +46,13 @@ public class MainActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 startActivity(ExeActivity.createExerciseIntent(MainActivity.this,
                         adapter.getItem(position)));
+            }
+        });
+
+        newExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, NewExerciseActivity.class));
             }
         });
 
