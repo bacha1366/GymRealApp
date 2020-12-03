@@ -7,8 +7,7 @@ import androidx.room.Room;
 public class GymApp extends Application {
 
     public ExercisesManager mExercisesManager;
-    public WorkoutManeger mWorkoutManeger;
-    public SetManeger mSetManeger;
+    public MainManeger mainManeger;
     private ExerciseDataBase exerciseDataBase;
 
     @Override
@@ -16,8 +15,8 @@ public class GymApp extends Application {
         super.onCreate();
         exerciseDataBase = Room.databaseBuilder(this, ExerciseDataBase.class, "ExerciseDataBase")
                 .build();
-        mExercisesManager = new ExercisesManager(getDB());
-        mWorkoutManeger = new WorkoutManeger(getDB());
+        mainManeger = new MainManeger(getDB());
+
     }
 
     public ExerciseDataBase getDB(){

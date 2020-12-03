@@ -17,7 +17,6 @@ public class MySet {
     public Long idExercise;
     @ColumnInfo (index = true)
     public Long idWorkout;
-    public String note;
 
     public MySet(Long idExercise, Long idWorkout){
         this.idExercise = idExercise;

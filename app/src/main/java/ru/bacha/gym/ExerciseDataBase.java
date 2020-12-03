@@ -9,5 +9,6 @@ public abstract class ExerciseDataBase extends RoomDatabase { //Создаем �
     public abstract ExerciseDao exerciseDao(); //Поле класса - объект Dao
     public abstract WorkoutDao workoutDao();
     public abstract SetDao setDao();
+    public abstract ApproachDao approachDao();
 
 }

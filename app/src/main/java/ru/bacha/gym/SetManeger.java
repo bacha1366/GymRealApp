@@ -13,7 +13,7 @@ public class SetManeger {
         setDao = db.setDao();
     }
 
-    public Single<MySet> getCreateMySet(Long idExercise, Long idWorkout){
+    public Single<MySet> getMySet(Long idExercise, Long idWorkout){
         return setDao.getMySet(idExercise, idWorkout)
                 .switchIfEmpty(createMySet(idExercise, idWorkout));
     }

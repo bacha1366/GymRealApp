@@ -21,7 +21,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity {// Наследуется от BaseActivity для метода getGymApp()
 
 
-    private ExercisesManager exercisesManager;
+    private MainManeger mainManager;
     ArrayAdapter<Exercise> adapter;
 
     @Override
@@ -30,11 +30,11 @@ public class MainActivity extends BaseActivity {// Наследуется от B
         setContentView(R.layout.activity_main);
         ListView listexercises = (ListView) findViewById(R.id.IDlist);
         FloatingActionButton newExercise = (FloatingActionButton) findViewById(R.id.new_btn);
-        exercisesManager = getGymApp().mExercisesManager ;
+        mainManager = getGymApp().mainManeger;
         adapter = new ArrayAdapter<>(MainActivity.this,
                 android.R.layout.simple_list_item_1) ;
         listexercises.setAdapter(adapter);
-        exercisesManager.getExercises()
+        mainManager.getExercises()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(exercises -> {

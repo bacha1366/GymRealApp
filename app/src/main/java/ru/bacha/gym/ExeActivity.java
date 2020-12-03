@@ -22,7 +22,7 @@ import java.util.Observer;
 
 public class ExeActivity extends BaseActivity implements View.OnClickListener {
 
-    private ExercisesManager exercisesManager;
+    private MainManeger mainManeger;
     TextView nameExe;
     TextView weightExe;
     TextView replayExe;
@@ -33,13 +33,13 @@ public class ExeActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_execises);
-        exercisesManager = getGymApp().mExercisesManager;
+        mainManeger = getGymApp().mainManeger;
         nameExe = findViewById(R.id.NameExe);
         weightExe = findViewById(R.id.WeightExe);
         replayExe = findViewById(R.id.ReplayExe);
         noteExe = findViewById(R.id.NoteExe);
         approachExe = findViewById(R.id.approachView);
-        exercisesManager
+        mainManeger
                 .getExerciseForID(getIntent().getLongExtra(EXERCISE_KEY, 0))
                 .subscribe(exercise -> {
                     nameExe.setText(exercise.name);
