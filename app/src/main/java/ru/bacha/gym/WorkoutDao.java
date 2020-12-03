@@ -11,12 +11,11 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
 @Dao
-public interface ExerciseDao {
-    @Query("SELECT * FROM Exercise")
-    Observable<List<Exercise>> getAll();
+public interface WorkoutDao {
+
+    @Query("SELECT * FROM Workout WHERE mydate = date('now')")
+    Maybe<Workout> getWorkout();
 
     @Insert
-    Single<Long> addExercise(Exercise exercise);
-
-
+    Single<Long> addWorkout(Workout workout);
 }

@@ -31,14 +31,16 @@ public class MainActivity extends BaseActivity {// Наследуется от B
         ListView listexercises = (ListView) findViewById(R.id.IDlist);
         FloatingActionButton newExercise = (FloatingActionButton) findViewById(R.id.new_btn);
         exercisesManager = getGymApp().mExercisesManager ;
+        adapter = new ArrayAdapter<>(MainActivity.this,
+                android.R.layout.simple_list_item_1) ;
+        listexercises.setAdapter(adapter);
         exercisesManager.getExercises()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(exercises -> {
-            adapter = new ArrayAdapter<>(MainActivity.this,
-                    android.R.layout.simple_list_item_1,
-                    exercises) ;
-            listexercises.setAdapter(adapter);
+                    adapter.clear();
+                    adapter.addAll(exercises);
+
         });
 
         listexercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -12,10 +12,21 @@ import androidx.room.PrimaryKey;
 
 public class MySet {
     @PrimaryKey (autoGenerate = true)
-    public int id;
+    public Long id;
     @ColumnInfo (index = true)
-    public int idExercise;
+    public Long idExercise;
     @ColumnInfo (index = true)
-    public int idWorkout;
+    public Long idWorkout;
     public String note;
+
+    public MySet(Long idExercise, Long idWorkout){
+        this.idExercise = idExercise;
+        this.idWorkout = idWorkout;
+    }
+
+    public MySet (Long id, Long idExercise, Long idWorkout){
+        this.id = id;
+        this.idExercise = idExercise;
+        this.idWorkout = idWorkout;
+    }
 }

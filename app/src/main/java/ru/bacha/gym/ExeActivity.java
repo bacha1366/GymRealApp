@@ -1,11 +1,15 @@
 package ru.bacha.gym;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.BiConsumer;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,31 +23,26 @@ import java.util.Observer;
 public class ExeActivity extends BaseActivity implements View.OnClickListener {
 
     private ExercisesManager exercisesManager;
-    private Exercise exercise;
     TextView nameExe;
     TextView weightExe;
     TextView replayExe;
     TextView approachExe;
     TextView noteExe;
-    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_execises);
         exercisesManager = getGymApp().mExercisesManager;
-        id = 1;
         nameExe = findViewById(R.id.NameExe);
         weightExe = findViewById(R.id.WeightExe);
         replayExe = findViewById(R.id.ReplayExe);
         noteExe = findViewById(R.id.NoteExe);
         approachExe = findViewById(R.id.approachView);
-        int i = getIntent().getIntExtra(EXERCISE_KEY, 0);//Строка для проверки
         exercisesManager
-                .getExerciseForID(getIntent().getIntExtra(EXERCISE_KEY, 0))
+                .getExerciseForID(getIntent().getLongExtra(EXERCISE_KEY, 0))
                 .subscribe(exercise -> {
                     nameExe.setText(exercise.name);
-                    this.exercise = exercise;
                 });
     }
 
@@ -81,10 +80,7 @@ public class ExeActivity extends BaseActivity implements View.OnClickListener {
                     Toast.makeText(this, "Что то пошло не так", Toast.LENGTH_LONG).show();
                     return;
                 }
-                exercisesManager.saveApproach(id, weight, replay, note).subscribe(() -> {
-                    id++;
-                    approachExe.append(/*approachExe.getText() +*/ " " + weight + "*" + replay + " ,");
-                });
+
 
 
         }
