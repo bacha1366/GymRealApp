@@ -1,28 +1,28 @@
-package ru.bacha.gym;
+package ru.bacha.gym.manager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import ru.bacha.gym.dao.WorkoutDao;
+import ru.bacha.gym.ExerciseDataBase;
+import ru.bacha.gym.model.Workout;
 
-public class WorkoutManeger {
+public class WorkoutManager {
 
 
-    ExerciseDataBase db;
     WorkoutDao workoutDao;
     Workout cache;
 
-    public WorkoutManeger(ExerciseDataBase db){
-        this.db = db;
+    public WorkoutManager(ExerciseDataBase db){
         workoutDao = db.workoutDao();
     }
 
     public Single<Workout> getWorkout() {
         if (cache == null) {
-            return workoutDao.getWorkout()
+            return workoutDao.getWorkout(nDate())
                     .switchIfEmpty(createWorkout())
                     .doOnSuccess(workout -> cache = workout)
                     .subscribeOn(Schedulers.io())
@@ -31,6 +31,11 @@ public class WorkoutManeger {
     }
 
     public Single<Workout> createWorkout() {
-        return workoutDao.addWorkout(new Workout()).map(id -> new Workout(id));
+        return workoutDao.addWorkout(new Workout(nDate())).map(id -> new Workout(id, nDate()));
+    }
+
+
+    private String nDate(){
+        return (new SimpleDateFormat("YYYY-MM-DD")).format(new Date());
     }
 }

@@ -1,15 +1,8 @@
-package ru.bacha.gym;
+package ru.bacha.gym.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.SingleObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.functions.Action;
-import io.reactivex.rxjava3.functions.BiConsumer;
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import ru.bacha.gym.model.Exercise;
+import ru.bacha.gym.manager.MainManager;
+import ru.bacha.gym.R;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,31 +11,31 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Observer;
-
 public class ExeActivity extends BaseActivity implements View.OnClickListener {
 
-    private MainManeger mainManeger;
     TextView nameExe;
     TextView weightExe;
     TextView replayExe;
     TextView approachExe;
     TextView noteExe;
+    MainManager mainManager;
+    Exercise exercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_execises);
-        mainManeger = getGymApp().mainManeger;
+        mainManager = getGymApp().mainManager;
         nameExe = findViewById(R.id.NameExe);
         weightExe = findViewById(R.id.WeightExe);
         replayExe = findViewById(R.id.ReplayExe);
         noteExe = findViewById(R.id.NoteExe);
         approachExe = findViewById(R.id.approachView);
-        mainManeger
+        mainManager
                 .getExerciseForID(getIntent().getLongExtra(EXERCISE_KEY, 0))
                 .subscribe(exercise -> {
                     nameExe.setText(exercise.name);
+                    this.exercise = exercise;
                 });
     }
 
@@ -80,8 +73,7 @@ public class ExeActivity extends BaseActivity implements View.OnClickListener {
                     Toast.makeText(this, "Что то пошло не так", Toast.LENGTH_LONG).show();
                     return;
                 }
-
-
+                mainManager.createApproach(exercise.id, weight, replay, note);
 
         }
     }

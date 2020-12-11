@@ -1,12 +1,11 @@
-package ru.bacha.gym;
-
-import androidx.appcompat.app.AppCompatActivity;
+package ru.bacha.gym.activity;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import ru.bacha.gym.model.Exercise;
+import ru.bacha.gym.manager.MainManager;
+import ru.bacha.gym.R;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,21 +15,19 @@ import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
-
 public class MainActivity extends BaseActivity {// Наследуется от BaseActivity для метода getGymApp()
 
 
-    private MainManeger mainManager;
+    private MainManager mainManager;
     ArrayAdapter<Exercise> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ListView listexercises = (ListView) findViewById(R.id.IDlist);
-        FloatingActionButton newExercise = (FloatingActionButton) findViewById(R.id.new_btn);
-        mainManager = getGymApp().mainManeger;
+        ListView listexercises = findViewById(R.id.IDlist);
+        FloatingActionButton newExercise = findViewById(R.id.new_btn);
+        mainManager = getGymApp().mainManager;
         adapter = new ArrayAdapter<>(MainActivity.this,
                 android.R.layout.simple_list_item_1) ;
         listexercises.setAdapter(adapter);
@@ -51,12 +48,7 @@ public class MainActivity extends BaseActivity {// Наследуется от B
             }
         });
 
-        newExercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, NewExerciseActivity.class));
-            }
-        });
+        newExercise.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, NewExerciseActivity.class)));
 
     }
 }

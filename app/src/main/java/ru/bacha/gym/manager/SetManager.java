@@ -1,15 +1,15 @@
-package ru.bacha.gym;
+package ru.bacha.gym.manager;
 
 import io.reactivex.rxjava3.core.Single;
+import ru.bacha.gym.dao.SetDao;
+import ru.bacha.gym.ExerciseDataBase;
+import ru.bacha.gym.model.MySet;
 
-public class SetManeger {
+public class SetManager {
 
-    ExerciseDataBase db;
-    SetDao setDao;
-    MySet mySet;
+    private SetDao setDao;
 
-    public SetManeger(ExerciseDataBase db){
-        this.db = db;
+    public SetManager(ExerciseDataBase db){
         setDao = db.setDao();
     }
 

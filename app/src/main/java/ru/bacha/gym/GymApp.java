@@ -4,24 +4,21 @@ import android.app.Application;
 
 import androidx.room.Room;
 
+import ru.bacha.gym.manager.MainManager;
+
 public class GymApp extends Application {
 
-    public ExercisesManager mExercisesManager;
-    public MainManeger mainManeger;
-    private ExerciseDataBase exerciseDataBase;
+    public MainManager mainManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        exerciseDataBase = Room.databaseBuilder(this, ExerciseDataBase.class, "ExerciseDataBase")
+        ExerciseDataBase exerciseDataBase = Room.databaseBuilder(this, ExerciseDataBase.class, "ExerciseDataBase")
                 .build();
-        mainManeger = new MainManeger(getDB());
+        mainManager = new MainManager(exerciseDataBase);
 
     }
 
-    public ExerciseDataBase getDB(){
-        return exerciseDataBase;
-    }
 
 
 

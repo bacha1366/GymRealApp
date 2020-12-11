@@ -2,6 +2,8 @@ package ru.bacha.gym;
 
 import org.junit.Test;
 
+import ru.bacha.gym.manager.ExercisesManager;
+
 import static org.junit.Assert.assertNotNull;
 
 
