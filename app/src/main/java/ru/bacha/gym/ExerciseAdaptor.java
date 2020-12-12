@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.zip.Inflater;
 
+import ru.bacha.gym.activity.ExeActivity;
+import ru.bacha.gym.activity.MainActivity;
 import ru.bacha.gym.model.Exercise;
 
 public class ExerciseAdaptor extends RecyclerView.Adapter<ExerciseAdaptor.ViewHolder> {
@@ -19,8 +21,7 @@ public class ExerciseAdaptor extends RecyclerView.Adapter<ExerciseAdaptor.ViewHo
     private LayoutInflater inflater;
     List<Exercise> exercises;
 
-    ExerciseAdaptor(Context context, List<Exercise> exercises){
-        this.exercises = exercises;
+    public ExerciseAdaptor(Context context){
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -33,8 +34,7 @@ public class ExerciseAdaptor extends RecyclerView.Adapter<ExerciseAdaptor.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseAdaptor.ViewHolder holder, int position) {
-        Exercise exercise = exercises.get(position);
-        holder.nameTextView.setText(exercise.name);
+        holder.bind(exercises.get(position));
     }
 
     @Override
@@ -47,6 +47,20 @@ public class ExerciseAdaptor extends RecyclerView.Adapter<ExerciseAdaptor.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
+
         }
+
+        public void bind(Exercise exercise){
+            nameTextView.setText(exercise.name + " " + exercise.id);
+            itemView.setOnClickListener(view -> {
+                itemView.getContext().startActivity(ExeActivity.createExerciseIntent(itemView.getContext(),
+                        exercise));
+            });
+        }
+    }
+
+    public void setExercises(List<Exercise> exercises){
+        this.exercises = exercises;
+        this.notifyDataSetChanged();
     }
 }

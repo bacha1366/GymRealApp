@@ -2,6 +2,7 @@ package ru.bacha.gym.activity;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import ru.bacha.gym.ExerciseAdaptor;
 import ru.bacha.gym.model.Exercise;
 import ru.bacha.gym.manager.MainManager;
 import ru.bacha.gym.R;
@@ -13,6 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends BaseActivity {// Наследуется от BaseActivity для метода getGymApp()
@@ -20,35 +24,28 @@ public class MainActivity extends BaseActivity {// Наследуется от B
 
     private MainManager mainManager;
     ArrayAdapter<Exercise> adapter;
+    ExerciseAdaptor exerciseAdaptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ListView listexercises = findViewById(R.id.IDlist);
-        FloatingActionButton newExercise = findViewById(R.id.new_btn);
+        RecyclerView recyclerViewExercises = findViewById(R.id.exercises_list);
+        recyclerViewExercises.setLayoutManager(new LinearLayoutManager(this));
+        exerciseAdaptor = new ExerciseAdaptor(this);
+        recyclerViewExercises.setAdapter(exerciseAdaptor);
+        FloatingActionButton Button_newExercise = findViewById(R.id.new_btn);
         mainManager = getGymApp().mainManager;
-        adapter = new ArrayAdapter<>(MainActivity.this,
-                android.R.layout.simple_list_item_1) ;
-        listexercises.setAdapter(adapter);
         mainManager.getExercises()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(exercises -> {
-                    adapter.clear();
-                    adapter.addAll(exercises);
+                    exerciseAdaptor.setExercises(exercises);
 
         });
 
-        listexercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                startActivity(ExeActivity.createExerciseIntent(MainActivity.this,
-                        adapter.getItem(position)));
-            }
-        });
 
-        newExercise.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, NewExerciseActivity.class)));
+        Button_newExercise.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, NewExerciseActivity.class)));
 
     }
 }

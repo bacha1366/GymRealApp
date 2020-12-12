@@ -20,10 +20,11 @@ public class Exercise {
     public Exercise(String name) {
         this.name = name;
     }
-    @Override
+    /*@Override
     public String toString() {
-        return name;
-    }
+        String string = name + "  " + id;
+        return string;
+    }*/
 
 
 

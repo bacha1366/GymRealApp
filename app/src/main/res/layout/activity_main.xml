@@ -18,10 +18,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_menu_add" />
 
-    <ListView
-            android:id="@+id/IDlist"
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/exercises_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteX="63dp"
+            tools:layout_editor_absoluteY="97dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

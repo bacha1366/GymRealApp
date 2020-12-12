@@ -10,14 +10,16 @@ import ru.bacha.gym.ExerciseDataBase;
 
 public class MainManager {
 
-    private ExerciseDataBase db;
-    private ExercisesManager mExercisesManager = new ExercisesManager(db);
-    private WorkoutManager mWorkoutManager = new WorkoutManager(db);
-    private SetManager mSetManager = new SetManager(db);
-    private ApproachManager mApproachManager = new ApproachManager(db);
+    private ExercisesManager mExercisesManager;
+    private WorkoutManager mWorkoutManager;
+    private SetManager mSetManager;
+    private ApproachManager mApproachManager;
 
     public MainManager(ExerciseDataBase db) {
-        this.db = db;
+        mExercisesManager = new ExercisesManager(db);
+        mWorkoutManager = new WorkoutManager(db);
+        mSetManager = new SetManager(db);
+        mApproachManager = new ApproachManager(db);
     }
 
     public Observable<List<Exercise>> getExercises() {
