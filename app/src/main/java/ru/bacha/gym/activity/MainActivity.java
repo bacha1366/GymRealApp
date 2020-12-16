@@ -6,6 +6,10 @@ import ru.bacha.gym.ExerciseAdaptor;
 import ru.bacha.gym.model.Exercise;
 import ru.bacha.gym.manager.MainManager;
 import ru.bacha.gym.R;
+import ru.bacha.gym.recycler.GymAdapter;
+import ru.bacha.gym.recycler.ViewHolderProvider;
+import ru.bacha.gym.recycler.viewholder.ExerciseViewHolderProvider;
+import ru.bacha.gym.recycler.viewholder.TitleViewHolderProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +23,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends BaseActivity {// Наследуется от BaseActivity для метода getGymApp()
 
 
     private MainManager mainManager;
     ArrayAdapter<Exercise> adapter;
-    ExerciseAdaptor exerciseAdaptor;
+    //ExerciseAdaptor exerciseAdaptor;
+    GymAdapter exerciseAdaptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +40,8 @@ public class MainActivity extends BaseActivity {// Наследуется от B
         setContentView(R.layout.activity_main);
         RecyclerView recyclerViewExercises = findViewById(R.id.exercises_list);
         recyclerViewExercises.setLayoutManager(new LinearLayoutManager(this));
-        exerciseAdaptor = new ExerciseAdaptor(this);
+        //exerciseAdaptor = new ExerciseAdaptor(this);
+        exerciseAdaptor = new GymAdapter(this);
         recyclerViewExercises.setAdapter(exerciseAdaptor);
         FloatingActionButton Button_newExercise = findViewById(R.id.new_btn);
         mainManager = getGymApp().mainManager;
@@ -40,8 +49,13 @@ public class MainActivity extends BaseActivity {// Наследуется от B
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(exercises -> {
-                    exerciseAdaptor.setExercises(exercises);
-
+                    //exerciseAdaptor.setExercises(exercises);
+                    List<ViewHolderProvider> providers = new ArrayList<>();
+                    providers.add(new TitleViewHolderProvider());
+                    for (Exercise exercise : exercises) {
+                        providers.add(new ExerciseViewHolderProvider(exercise));
+                    }
+                    exerciseAdaptor.setProviderList(providers);
         });
 
 

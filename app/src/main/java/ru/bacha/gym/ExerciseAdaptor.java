@@ -9,58 +9,101 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import ru.bacha.gym.activity.ExeActivity;
-import ru.bacha.gym.activity.MainActivity;
 import ru.bacha.gym.model.Exercise;
 
-public class ExerciseAdaptor extends RecyclerView.Adapter<ExerciseAdaptor.ViewHolder> {
+public class ExerciseAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private LayoutInflater inflater;
-    List<Exercise> exercises;
+    List<Exercise> exercises = new ArrayList<>();
 
     public ExerciseAdaptor(Context context){
         this.inflater = LayoutInflater.from(context);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return ElementType.HEADER.ordinal();
+        } else {
+            return ElementType.ELEMENT.ordinal();
+        }
+    }
+
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.list_item_exercise, parent, false);
-        return new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ElementType type = ElementType.values()[viewType];
+        return type.createViewHolder(inflater, parent);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExerciseAdaptor.ViewHolder holder, int position) {
-        holder.bind(exercises.get(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof TitleViewHolder) {
+            ((TitleViewHolder) holder).bind();
+        } else if (holder instanceof ExerciseViewHolder) {
+            ((ExerciseViewHolder) holder).bind(exercises.get(position - 1));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return exercises.size();
+        return exercises.size() + 1;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView nameTextView;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            nameTextView = itemView.findViewById(R.id.nameTextView);
 
-        }
-
-        public void bind(Exercise exercise){
-            nameTextView.setText(exercise.name + " " + exercise.id);
-            itemView.setOnClickListener(view -> {
-                itemView.getContext().startActivity(ExeActivity.createExerciseIntent(itemView.getContext(),
-                        exercise));
-            });
-        }
-    }
 
     public void setExercises(List<Exercise> exercises){
         this.exercises = exercises;
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
+}
+
+class ExerciseViewHolder extends RecyclerView.ViewHolder {
+    private final TextView nameTextView;
+    public ExerciseViewHolder(@NonNull View itemView) {
+        super(itemView);
+        nameTextView = itemView.findViewById(R.id.nameTextView);
+
+    }
+
+    public void bind(Exercise exercise){
+        nameTextView.setText(exercise.name);
+        itemView.setOnClickListener(view -> {
+            itemView.getContext().startActivity(ExeActivity.createExerciseIntent(itemView.getContext(),
+                    exercise));
+        });
+    }
+}
+
+class TitleViewHolder extends RecyclerView.ViewHolder {
+    public TitleViewHolder(@NonNull View itemView) {
+        super(itemView);
+
+    }
+
+    public void bind(){
+    }
+}
+
+enum ElementType {
+    HEADER {
+        @Override
+        RecyclerView.ViewHolder createViewHolder(LayoutInflater inflater, ViewGroup parent) {
+            View view = inflater.inflate(R.layout.list_item_header, parent, false);
+            return new TitleViewHolder(view);
+        }
+    },
+    ELEMENT {
+        @Override
+        RecyclerView.ViewHolder createViewHolder(LayoutInflater inflater, ViewGroup parent) {
+            View view = inflater.inflate(R.layout.list_item_exercise, parent,false);
+            return new ExerciseViewHolder(view);
+        }
+    };
+
+    abstract RecyclerView.ViewHolder createViewHolder(LayoutInflater inflater, ViewGroup parent);
 }
