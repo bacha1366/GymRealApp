@@ -2,7 +2,6 @@ package ru.bacha.gym.activity;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import ru.bacha.gym.ExerciseAdaptor;
 import ru.bacha.gym.model.Exercise;
 import ru.bacha.gym.manager.MainManager;
 import ru.bacha.gym.R;
@@ -13,10 +12,7 @@ import ru.bacha.gym.recycler.viewholder.TitleViewHolderProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +28,7 @@ public class MainActivity extends BaseActivity {// Наследуется от B
     private MainManager mainManager;
     ArrayAdapter<Exercise> adapter;
     //ExerciseAdaptor exerciseAdaptor;
-    GymAdapter exerciseAdaptor;
+    GymAdapter gymAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +37,8 @@ public class MainActivity extends BaseActivity {// Наследуется от B
         RecyclerView recyclerViewExercises = findViewById(R.id.exercises_list);
         recyclerViewExercises.setLayoutManager(new LinearLayoutManager(this));
         //exerciseAdaptor = new ExerciseAdaptor(this);
-        exerciseAdaptor = new GymAdapter(this);
-        recyclerViewExercises.setAdapter(exerciseAdaptor);
+        gymAdapter = new GymAdapter(this);
+        recyclerViewExercises.setAdapter(gymAdapter);
         FloatingActionButton Button_newExercise = findViewById(R.id.new_btn);
         mainManager = getGymApp().mainManager;
         mainManager.getExercises()
@@ -55,7 +51,7 @@ public class MainActivity extends BaseActivity {// Наследуется от B
                     for (Exercise exercise : exercises) {
                         providers.add(new ExerciseViewHolderProvider(exercise));
                     }
-                    exerciseAdaptor.setProviderList(providers);
+                    gymAdapter.setProviderList(providers);
         });
 
 
